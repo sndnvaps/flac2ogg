@@ -4,19 +4,19 @@
 #        flac2ogg.ps1 -Input_flac music_input.flac -Output music_output.ogg
 $FFMPEG=".\ffmpeg.exe"
 
-
-
 Function flac2ogg {
 
 param($Input_flac,$Output)
 
-     if ($args.Count -ne 5) {
+     if (($Input_flac -eq "") -or ($Output -eq "")) {
        flac2oggHelp
-       Write-Host $Input_flac $Output
+       return
      }
      
     if(Test-path $FFMPEG) {
         .\ffmpeg.exe  -i $Input_flac -acodec libvorbis $Output
+    } else {
+         Write-Host "$FFMPEG is not exist!"
     }
 }
 
